@@ -1,0 +1,11 @@
+Flask
+emoji
+numpy
+pandas
+scikit-learn
+tensorflow
+torch
+transformers
+Pillow
+opencv-python
+shap

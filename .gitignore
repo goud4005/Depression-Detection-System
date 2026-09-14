@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+models/
+*.h5
+*.keras
+*.pkl
+*.db
+static/*.jpg
+static/*.png
