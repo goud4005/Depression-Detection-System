@@ -1,68 +1,86 @@
-# Depression Detection System
+# 🧠 Deepression — Multimodal Depression Indicator Analysis System
+
+> An experimental multimodal AI system that analyzes text, facial expressions, and emojis to identify patterns associated with depression-related indicators.
+
+---
 
 ## 📌 Overview
 
-The **AI Depression Detection System** is a multimodal machine learning application designed to analyze different forms of user-generated social media data to identify patterns that may be associated with depressive tendencies.
+AIDeepression is a Flask-based machine learning application designed to explore multimodal approaches for analyzing depression-related signals from user-provided content.
 
-The system combines **text, facial expressions, and emoji-based emotional information** to provide a more comprehensive analysis than relying on a single data modality.
+Instead of relying on a single input type, the system combines multiple modalities:
 
-> **Disclaimer:** This project is developed for academic and research purposes. It is not a medical diagnostic tool and should not be used as a substitute for professional mental-health assessment.
+- 📝 Text analysis
+- 🖼️ Facial/image analysis
+- 😊 Emoji analysis
+- 🔀 Multimodal score fusion
+- 🔍 SHAP-based text explainability
+- 🔥 Grad-CAM-based image visualization
+- 📊 User history and dashboard analytics
 
----
+The project is intended for **academic, research, and educational purposes**.
 
-## 🎯 Objectives
-
-The main objectives of this project are:
-
-- Analyze textual content for sentiment and emotional patterns.
-- Detect facial emotions from images.
-- Analyze emoji sequences to identify emotional patterns.
-- Combine multiple modalities using multimodal feature fusion.
-- Develop an integrated application for depression-risk analysis.
-- Demonstrate the practical application of AI and deep learning in mental-health research.
+It should not be considered a medical diagnostic system.
 
 ---
 
-## 🧠 System Architecture
+## ✨ Features
 
-The system processes three primary modalities:
+### 📝 Text Analysis
 
-### 1. Text Analysis
+The system processes user-provided text and uses a transformer-based model to estimate depression-related signals.
 
-Textual data is processed using **DistilBERT** to extract contextual sentiment and emotional features.
+The application:
 
-**Technology:** DistilBERT / NLP
+- Cleans the input text
+- Removes emojis for text-only analysis
+- Generates a prediction score
+- Classifies the result as Normal or Depression
+- Generates SHAP-based explanations
 
-### 2. Facial Emotion Recognition
+---
 
-Images are analyzed using a **Convolutional Neural Network (CNN)** to identify facial emotion patterns.
+### 🖼️ Facial/Image Analysis
 
-**Technology:** CNN / Computer Vision
+The application can analyze an uploaded image using trained deep-learning models.
 
-### 3. Emoji Emotion Analysis
+The image pipeline provides:
 
-Emoji sequences are analyzed using a **Bidirectional LSTM (Bi-LSTM)** to capture emotional patterns and sequence dependencies.
+- Image preprocessing
+- Multiple model predictions
+- Depression-related probability estimation
+- Grad-CAM++ visualization
 
-**Technology:** Bi-LSTM / Deep Learning
+Grad-CAM++ is used to provide a visual explanation of regions that contributed to the model prediction.
 
-### 4. Multimodal Fusion
+---
 
-The features extracted from text, images, and emojis are combined using a multimodal fusion approach to produce an integrated prediction.
+### 😊 Emoji Analysis
+
+Emojis are analyzed separately using a trained neural network model.
+
+The system extracts emoji-related patterns and generates an additional prediction score.
+
+---
+
+## 🔀 Multimodal Fusion
+
+The final prediction combines the available modalities.
+
+Current fusion weights:
+
+| Modality | Weight |
+|----------|-------:|
+| Text | 60% |
+| Emoji | 30% |
+| Image | 10% |
+
+If only some modalities are available, the system normalizes the weights across the available inputs.
+
+### Fusion Formula
 
 ```text
-             User Data
-                 │
-        ┌────────┼────────┐
-        │        │        │
-      Text     Image     Emoji
-        │        │        │
-        ▼        ▼        ▼
-    DistilBERT  CNN    Bi-LSTM
-        │        │        │
-        └────────┼────────┘
-                 │
-        Multimodal Feature
-             Fusion
-                 │
-                 ▼
-       Depression Analysis
+Fusion Score =
+Σ(modality score × modality weight)
+-----------------------------------
+        Σ(modality weights)
